@@ -45,7 +45,7 @@ namespace PGdemoApp.Web
 
             app.UseRouting();
 
-            app.UseAuthorization();
+           
 
             app.UseEndpoints(endpoints =>
             {

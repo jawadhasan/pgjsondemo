@@ -28,6 +28,8 @@ Obj/
 
 .vscode/
 wwwroot/
+dist-folder/
+dist-folder.zip
 
 AccountingBook/AccountingBook.Web/dist/
 AccountingBook/AccountingBook.Web/node_modules/

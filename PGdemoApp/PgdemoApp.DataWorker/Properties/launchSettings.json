@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "PgdemoApp.DataWorker": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

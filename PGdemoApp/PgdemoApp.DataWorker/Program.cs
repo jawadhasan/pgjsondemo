@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.EventLog;
 
 namespace PgdemoApp.DataWorker
 {
@@ -19,6 +21,15 @@ namespace PgdemoApp.DataWorker
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddHostedService<Worker>();
-                }).UseWindowsService();
+                }).UseWindowsService()
+              //.ConfigureLogging((hostContext, logging) => logging.AddEventLog());
+              .ConfigureLogging((context, logging) =>
+              {
+                  logging.AddEventLog(new EventLogSettings()
+                  {
+                      SourceName = "MyTestSource",
+                      LogName = "MyTestLog"
+                  });
+              });
     }
 }

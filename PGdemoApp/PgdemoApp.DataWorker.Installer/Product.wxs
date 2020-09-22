@@ -33,6 +33,7 @@
       <Directory Id="ProgramFiles64Folder">
         <Directory Id="INSTALLFOLDER" Name="pgdemoappworker">
           
+
         
         </Directory>
       </Directory>
@@ -55,7 +56,10 @@
 			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
 			<!-- <Component Id="ProductComponent"> -->
 				<!-- TODO: Insert files, registry keys, and other resources here. -->
-			<!-- </Component> -->
+			<!-- </Component> -->    
 		</ComponentGroup>
+
 	</Fragment>
+
+
 </Wix>

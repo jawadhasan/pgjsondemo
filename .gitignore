@@ -30,6 +30,8 @@ Obj/
 wwwroot/
 dist-folder/
 dist-folder.zip
+Installs
+Installs/
 
 AccountingBook/AccountingBook.Web/dist/
 AccountingBook/AccountingBook.Web/node_modules/

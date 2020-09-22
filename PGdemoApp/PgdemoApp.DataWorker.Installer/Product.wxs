@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <!--Please update the Product Code, when it is a new version-->
+  <?if $(var.Platform)=x64 ?>
+  <?define ProductCode="{70399ABE-5776-40A8-AF37-997585A0480F}"?>
+  <?else?>
+  <?define ProductCode="{1A6CB83D-7284-4AF3-A74B-1C68936F3C5C}"?>
+  <?endif?>
+  
+	<Product Id="$(var.ProductCode)" 
+           Name="PgdemoApp.DataWorker.Installer_$(var.Platform)" 
+           Language="1033" 
+           Version="1.0.0.0" 
+           Manufacturer="hexquote.com" 
+           UpgradeCode="6ff7d536-16d9-403a-b680-5fd2e979e4f0">
+    
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+		<Feature Id="ProductFeature" Title="PgdemoApp.DataWorker.Installer" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="PublishedComponents" />
+    </Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+      <?if $(var.Platform)=x64?>
+      <!-- Program Files (64bit) folder-->
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLFOLDER" Name="pgdemoappworker">
+          
+        
+        </Directory>
+      </Directory>
+
+
+      <?else?>
+      <!-- Program Files (32bit) folder-->
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="pgdemoappworker">
+         
+         
+        </Directory>
+      </Directory>
+      <?endif?>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+			<!-- <Component Id="ProductComponent"> -->
+				<!-- TODO: Insert files, registry keys, and other resources here. -->
+			<!-- </Component> -->
+		</ComponentGroup>
+	</Fragment>
+</Wix>

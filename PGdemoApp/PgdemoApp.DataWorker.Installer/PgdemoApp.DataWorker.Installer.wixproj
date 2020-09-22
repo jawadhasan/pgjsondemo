@@ -63,6 +63,12 @@
     <Exec Command="rd /s /q ..\PgdemoApp.DataWorker\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)" />
     <!-- Publish dotnet core app -->
     <Exec Command="dotnet publish ..\PgdemoApp.DataWorker\PgdemoApp.DataWorker.csproj -c $(Configuration) -r win-$(Platform)" />
+
+    <!-- SeriveFile movement -->
+    <Exec Command="if not exist exefile mkdir exefile" />
+    <Exec Command="move ..\PgdemoApp.DataWorker\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)\publish\PgdemoApp.DataWorker.exe exefile\PgdemoApp.DataWorker.exe" />
+
+    
     <!-- Get asssembly version -->
     <GetAssemblyIdentity AssemblyFiles="..\PgdemoApp.DataWorker\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)\PgdemoApp.DataWorker.dll">
       <Output TaskParameter="Assemblies" ItemName="AssemblyVersion" />
@@ -73,7 +79,7 @@
       <!-- Define a variable for version and use it in the setup -->
     </PropertyGroup>
     <!-- Harvest file components from publish folder -->
-    <!--<HeatDirectory OutputFile="componentsGenerated.wxs" DirectoryRefId="INSTALLFOLDER" ComponentGroupName="PublishedComponents" SuppressCom="true" Directory="..\PgdemoApp.DataWorker\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)\publish" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)" PreprocessorVariable="var.Basepath" />-->
+    <HeatDirectory OutputFile="componentsGenerated.wxs" DirectoryRefId="INSTALLFOLDER" ComponentGroupName="PublishedComponents" SuppressCom="true" Directory="..\PgdemoApp.DataWorker\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)\publish" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)" PreprocessorVariable="var.Basepath" />
   </Target>
   <Target Name="AfterBuild">
     <!-- Get asssembly version -->

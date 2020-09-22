@@ -56,10 +56,18 @@
 			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
 			<!-- <Component Id="ProductComponent"> -->
 				<!-- TODO: Insert files, registry keys, and other resources here. -->
-			<!-- </Component> -->    
+			<!-- </Component> -->
+
+      <Component Id="ServiceComponent" Guid="{3D6380EF-11C6-4A5E-B5C6-AC597837B790}">
+        <File Id="FILE_PGSERVICE" KeyPath="yes" Source=".\exefile\PgdemoApp.DataWorker.exe" />
+        <ServiceInstall Id="InstallWindowsService1" Name="pgdemoworkersvc" DisplayName="PgDemoAppWorker Service"
+     Description="pgdemo Jobs"  Start="auto" ErrorControl="normal" Type="ownProcess" />
+
+        <ServiceControl Id="sc_WindowsService1" Name="pgdemoworkersvc" Start="install" Stop="both" Remove="uninstall" Wait="yes" />
+      </Component>
 		</ComponentGroup>
 
 	</Fragment>
-
-
+ 
+ 
 </Wix>

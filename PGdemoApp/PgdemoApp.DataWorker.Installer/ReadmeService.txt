@@ -8,3 +8,4 @@
 
               <ServiceControl Id="sc_WindowsService1" Name="testsvc" Start="install" Stop="both" Remove="uninstall" Wait="yes" />
 4. Comment HEAT TAG in .csproj
+5. Build again

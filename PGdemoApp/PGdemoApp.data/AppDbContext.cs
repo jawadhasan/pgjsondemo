@@ -6,6 +6,7 @@ namespace PGdemoApp.data
     public class AppDbContext : DbContext
     {
         public DbSet<CustomerDoc> CustomerDocs { get; set; }
+        public DbSet<LogRecord> LogRecords { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options):base(options)
         {

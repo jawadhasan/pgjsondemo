@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -21,6 +17,12 @@ namespace PgdemoApp.DataWorker
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddHostedService<Worker>();
+                    //enable below code if persistence is required.
+                    //services.AddDbContext<AppDbContext>(options =>
+                    //{
+                    //    options.UseNpgsql("Host=localhost;Database=pgdemoapp;Username=postgres;Password=sasa");
+                    //});
+                    //services.AddTransient<ILogService, LogService>();
                 }).UseWindowsService()
               //.ConfigureLogging((hostContext, logging) => logging.AddEventLog());
               .ConfigureLogging((context, logging) =>

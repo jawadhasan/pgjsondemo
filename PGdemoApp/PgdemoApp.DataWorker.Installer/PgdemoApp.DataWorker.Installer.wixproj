@@ -61,7 +61,7 @@
   </Target>
   <Target Name="BeforeBuild">
     <Exec Command="rd /s /q ..\PgdemoApp.DataWorker\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)" />
-    <!-- Publish dotnet core app -->
+      <!-- Publish dotnet core app -->
     <Exec Command="dotnet publish ..\PgdemoApp.DataWorker\PgdemoApp.DataWorker.csproj -c $(Configuration) -r win-$(Platform)" />
 
     <!-- SeriveFile movement -->

@@ -36,6 +36,14 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CustomActions\CustomActions.csproj">
+      <Name>CustomActions</Name>
+      <Project>{258fd5e9-c82e-4c66-9064-1a9655b64d4e}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\PgdemoApp.DataWorker\PgdemoApp.DataWorker.csproj">
       <Name>PgdemoApp.DataWorker</Name>
       <Project>{f50df654-75e5-4195-8f23-f51944c27de1}</Project>
@@ -61,14 +69,11 @@
   </Target>
   <Target Name="BeforeBuild">
     <Exec Command="rd /s /q ..\PgdemoApp.DataWorker\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)" />
-      <!-- Publish dotnet core app -->
+    <!-- Publish dotnet core app -->
     <Exec Command="dotnet publish ..\PgdemoApp.DataWorker\PgdemoApp.DataWorker.csproj -c $(Configuration) -r win-$(Platform)" />
-
     <!-- SeriveFile movement -->
     <Exec Command="if not exist exefile mkdir exefile" />
     <Exec Command="move ..\PgdemoApp.DataWorker\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)\publish\PgdemoApp.DataWorker.exe exefile\PgdemoApp.DataWorker.exe" />
-
-    
     <!-- Get asssembly version -->
     <GetAssemblyIdentity AssemblyFiles="..\PgdemoApp.DataWorker\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)\PgdemoApp.DataWorker.dll">
       <Output TaskParameter="Assemblies" ItemName="AssemblyVersion" />

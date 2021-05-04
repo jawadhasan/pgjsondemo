@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 
   <!--Please update the Product Code, when it is a new version-->
   <?if $(var.Platform)=x64 ?>
@@ -20,11 +21,25 @@
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate EmbedCab="yes" />
 
-		<Feature Id="ProductFeature" Title="PgdemoApp.DataWorker.Installer" Level="1">
+
+
+
+    <!--Julian Date value is evaluated-->
+    <Binary Id="InstallerCustomActionsDLL" SourceFile="$(var.CustomActions.TargetDir)CustomActions.CA.dll" />
+    <CustomAction Id="CalculateJulianDate"  BinaryKey="InstallerCustomActionsDLL" DllEntry="CalculateJulianDate" Return="check" Execute="immediate"/>
+    <InstallExecuteSequence>
+      <Custom Action="CalculateJulianDate"  Before="CostFinalize" />
+    </InstallExecuteSequence>
+
+
+
+
+    <Feature Id="ProductFeature" Title="PgdemoApp.DataWorker.Installer" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
       <ComponentGroupRef Id="PublishedComponents" />
     </Feature>
 	</Product>
+
 
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
@@ -32,9 +47,6 @@
       <!-- Program Files (64bit) folder-->
       <Directory Id="ProgramFiles64Folder">
         <Directory Id="INSTALLFOLDER" Name="pgdemoappworker">
-          
-
-        
         </Directory>
       </Directory>
 
@@ -43,8 +55,6 @@
       <!-- Program Files (32bit) folder-->
       <Directory Id="ProgramFilesFolder">
         <Directory Id="INSTALLFOLDER" Name="pgdemoappworker">
-         
-         
         </Directory>
       </Directory>
       <?endif?>
@@ -53,21 +63,30 @@
 
 	<Fragment>
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
-			<!-- <Component Id="ProductComponent"> -->
-				<!-- TODO: Insert files, registry keys, and other resources here. -->
-			<!-- </Component> -->
+
 
       <Component Id="ServiceComponent" Guid="{3D6380EF-11C6-4A5E-B5C6-AC597837B790}">
         <File Id="FILE_PGSERVICE" KeyPath="yes" Source=".\exefile\PgdemoApp.DataWorker.exe" />
-        <ServiceInstall Id="InstallWindowsService1" Name="pgdemoworkersvc" DisplayName="PgDemoAppWorker Service"
-     Description="pgdemo Jobs"  Start="auto" ErrorControl="normal" Type="ownProcess" />
+          <ServiceInstall Id="InstallWindowsService1" Name="pgdemoworkersvc" DisplayName="PgDemoAppWorker Service"
+              Description="pgdemo Jobs"  Start="auto" ErrorControl="normal" Type="ownProcess" />
 
         <ServiceControl Id="sc_WindowsService1" Name="pgdemoworkersvc" Start="install" Stop="both" Remove="uninstall" Wait="yes" />
       </Component>
+
+      <!-- Update SWSConfig.xml -->
+      <ComponentRef Id="cmpUpdateSWSConfigXml"/>
+
 		</ComponentGroup>
 
 	</Fragment>
+
+
+  <Fragment>
+    <Component Id="cmpUpdateSWSConfigXml" Guid="{E975E38E-98EB-42EC-AE52-650ED3A36D1C}" KeyPath="yes" Directory="INSTALLFOLDER">
+      <util:XmlFile Id="Set_InstallDate" Action="setValue" ElementPath="//appSettings/add[\[]@key='InstallDate'[\]]/@value" Value="[Date]" File="[INSTALLFOLDER]SWSConfig.xml"/>
+      <util:XmlFile Id="Set_InstallDateJulian" Action="setValue" ElementPath="//appSettings/add[\[]@key='InstallDateJulian'[\]]/@value" Value="[INSTALL_DATE_JULIAN]" File="[INSTALLFOLDER]SWSConfig.xml"/>
+    </Component>
+  </Fragment>
  
  
 </Wix>

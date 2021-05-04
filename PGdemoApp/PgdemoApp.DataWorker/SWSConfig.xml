@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <appSettings>
+    <add key="REGISTERED_EMAIL" value="HCSW.Support@hitachi-eu.com" />
+    <add key="LICENSE_KEY" value="" />
+    <add key="ACTIVATION_KEY" value="" />
+    <add key="INSTALLATION_TYPE_CHOSEN" value="free_trial" />
+    <add key="InstallDate" value="15/04/2021" />
+    <add key="InstallDateJulian" value="11224340" />
+    <add key="HARDWARE_UID" value="BFEBFBFF000806E9" />
+    <add key="MESSAGE_DESIGNER_FEATURE_CHECKED" value="1" />
+    <add key="PRINTER_MANAGEMENT_FEATURE_CHECKED" value="1" />
+    <add key="PRINTJOB_MANAGEMENT_FEATURE_CHECKED" value="1" />
+  </appSettings>
+</configuration>

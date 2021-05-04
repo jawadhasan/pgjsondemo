@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using LicenseHelper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -22,9 +25,19 @@ namespace PgdemoApp.DataWorker
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            var basePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var configFilePath = Path.Combine(basePath, "SWSConfig.xml");
+            var configFileLoader = new ConfigFileLoader(configFilePath);
+
+            var configData = configFileLoader.GetConfigData();
+
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                _logger.LogInformation("InstallDate: {0} ", configData.InstallDate);
+                _logger.LogInformation("JulianDate: {0}", configData.FromJulianDate);
+             
+
 
                 //InsertRecord();
 

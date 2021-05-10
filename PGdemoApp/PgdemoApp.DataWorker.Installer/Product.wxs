@@ -4,15 +4,15 @@
 
   <!--Please update the Product Code, when it is a new version-->
   <?if $(var.Platform)=x64 ?>
-  <?define ProductCode="{70399ABE-5776-40A8-AF37-997585A0480F}"?>
+  <?define ProductCode="{7822ED0D-AD62-4CF9-AD77-8A3CBE1C2CAD}"?>
   <?else?>
-  <?define ProductCode="{1A6CB83D-7284-4AF3-A74B-1C68936F3C5C}"?>
+  <?define ProductCode="{77F54213-6446-4BD5-87A6-60729BC0DDB6}"?>
   <?endif?>
   
 	<Product Id="$(var.ProductCode)" 
            Name="PgdemoApp.DataWorker.Installer_$(var.Platform)" 
            Language="1033" 
-           Version="1.0.0.0" 
+           Version="2.0.0.0" 
            Manufacturer="hexquote.com" 
            UpgradeCode="6ff7d536-16d9-403a-b680-5fd2e979e4f0">
     

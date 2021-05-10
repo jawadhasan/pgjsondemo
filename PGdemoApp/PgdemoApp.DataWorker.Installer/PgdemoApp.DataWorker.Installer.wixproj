@@ -28,8 +28,10 @@
     <Cultures>;</Cultures>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>BasePath</DefineConstants>
+    <Cultures>;</Cultures>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="componentsGenerated.wxs" />
@@ -70,7 +72,7 @@
   <Target Name="BeforeBuild">
     <Exec Command="rd /s /q ..\PgdemoApp.DataWorker\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)" />
     <!-- Publish dotnet core app -->
-    <Exec Command="dotnet publish ..\PgdemoApp.DataWorker\PgdemoApp.DataWorker.csproj -c $(Configuration) -r win-$(Platform)" />
+    <Exec Command="dotnet publish ..\PgdemoApp.DataWorker\PgdemoApp.DataWorker.csproj -c $(Configuration) -r win-$(Platform) --self-contained false" />
     <!-- SeriveFile movement -->
     <Exec Command="if not exist exefile mkdir exefile" />
     <Exec Command="move ..\PgdemoApp.DataWorker\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)\publish\PgdemoApp.DataWorker.exe exefile\PgdemoApp.DataWorker.exe" />
